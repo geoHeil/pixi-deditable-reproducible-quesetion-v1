@@ -1,0 +1,31 @@
+[project]
+name = "foo"
+version = "1.0.0"
+description = "bar"
+authors = [
+  "baz",
+]
+platforms = ["linux-64", "osx-arm64"]
+channels = ["conda-forge"]
+
+[environments]
+myenv-static = { features = ["myenv-static"], solve-group = "myenv-static" }
+myenv-dynamic = { features = ["myenv-dynamic"], solve-group = "myenv-dynamic" }
+
+
+[dependencies]
+python = "3.11"
+pip = ">=24.2"
+
+
+[feature.myenv-static.dependencies]
+pytest = ">=8.3.2,<9"
+
+[feature.myenv-static.pypi-dependencies]
+moto = "~=5.0.12"
+
+[feature.pipeline-basics.dependencies]
+pandas = ">2,<3"
+
+[feature.myenv-dynamic.pypi-dependencies]
+mylib = { path = "./mylib", editable = true }
