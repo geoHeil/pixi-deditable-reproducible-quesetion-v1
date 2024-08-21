@@ -2,6 +2,7 @@
 
 FROM ghcr.io/prefix-dev/pixi:0.27.1-bookworm
 
+#WORKDIR /app/mylib
 WORKDIR /app
 COPY pixi.toml .
 COPY pixi.lock .
@@ -12,7 +13,7 @@ COPY pixi.lock .
 #COPY mylib mylib
 
 #RUN pixi install -e myenv-static --locked
-RUN pixi install -e myenv-static --frozen
+RUN pixi install -e myenv-static --frozen -vvv
 RUN pixi shell-hook -e myenv-static -s bash > /shell-hook
 RUN echo "#!/bin/bash" > /app/entrypoint_myenv_static.sh
 RUN cat /shell-hook >> /app/entrypoint_myenv_static.sh
@@ -21,7 +22,8 @@ RUN echo 'exec "$@"' >> /app/entrypoint_myenv_static.sh
 
 COPY mylib mylib
 # the source code is only needed here
-RUN pixi install -e myenv-dynamic --locked
+#--locked
+RUN pixi install -e myenv-dynamic  --frozen -vv
 RUN pixi shell-hook -e myenv-dynamic -s bash > /shell-hook
 RUN echo "#!/bin/bash" > /app/entrypoint_myenv_editable.sh
 RUN cat /shell-hook >> /app/entrypoint_myenv_editable.sh
