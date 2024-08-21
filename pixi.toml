@@ -24,7 +24,7 @@ pytest = ">=8.3.2,<9"
 [feature.myenv-static.pypi-dependencies]
 moto = "~=5.0.12"
 
-[feature.pipeline-basics.dependencies]
+[feature.myenv-dynamic.dependencies]
 pandas = ">2,<3"
 
 [feature.myenv-dynamic.pypi-dependencies]
