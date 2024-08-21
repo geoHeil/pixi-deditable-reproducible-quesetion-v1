@@ -11,7 +11,8 @@ COPY pixi.lock .
 # but if copy 
 #COPY mylib mylib
 
-RUN pixi install -e myenv-static --locked
+#RUN pixi install -e myenv-static --locked
+RUN pixi install -e myenv-static --frozen
 RUN pixi shell-hook -e myenv-static -s bash > /shell-hook
 RUN echo "#!/bin/bash" > /app/entrypoint_myenv_static.sh
 RUN cat /shell-hook >> /app/entrypoint_myenv_static.sh
@@ -20,8 +21,8 @@ RUN echo 'exec "$@"' >> /app/entrypoint_myenv_static.sh
 
 COPY mylib mylib
 # the source code is only needed here
-RUN pixi install -e myenv-editable --locked
-RUN pixi shell-hook -e myenv-editable -s bash > /shell-hook
+RUN pixi install -e myenv-dynamic --locked
+RUN pixi shell-hook -e myenv-dynamic -s bash > /shell-hook
 RUN echo "#!/bin/bash" > /app/entrypoint_myenv_editable.sh
 RUN cat /shell-hook >> /app/entrypoint_myenv_editable.sh
 RUN echo 'exec "$@"' >> /app/entrypoint_myenv_editable.sh
